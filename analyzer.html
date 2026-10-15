@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analyze Resume — AI Resume Analyzer</title>
+    <meta name="description" content="Upload your PDF or DOCX resume and get instant AI-powered ATS scoring, job matching, and improvement suggestions.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="navbar-container">
+            <a href="index.html" class="navbar-brand">
+                <div class="navbar-brand-icon">📄</div>
+                Resume Analyzer
+            </a>
+            <ul class="navbar-nav" id="navbarNav">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="analyzer.html" class="active">Analyze Resume</a></li>
+                <li><a href="builder.html">Resume Builder</a></li>
+                <li><a href="batch_results.html">Batch Results</a></li>
+                <li><a href="about.html">About</a></li>
+            </ul>
+            <div class="navbar-right">
+                <div class="health-indicator">
+                    <span class="health-dot" id="healthDot"></span>
+                    <span class="health-label" id="healthLabel">Checking...</span>
+                </div>
+                <button class="navbar-toggle" id="navbarToggle" aria-label="Toggle navigation">☰</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Analyzer Page -->
+    <div class="page-wrapper">
+        <div class="analyzer-container">
+
+            <!-- Header -->
+            <div class="analyzer-header">
+                <div class="section-badge">AI-Powered</div>
+                <h1>Analyze Your Resume</h1>
+                <p>Upload your resume and optionally add a job description to get a detailed match score.</p>
+            </div>
+
+            <!-- Upload Drop Zone -->
+            <div class="drop-zone" id="dropZone">
+                <!-- Default content (no file selected) -->
+                <div class="drop-zone-content" id="dropZoneContent">
+                    <div class="drop-zone-icon">📤</div>
+                    <h3>Drag &amp; Drop Your Resume Here</h3>
+                    <p>Supports PDF and DOCX files up to 16 MB</p>
+                    <div class="drop-zone-formats">
+                        <span class="format-badge">PDF</span>
+                        <span class="format-badge">DOCX</span>
+                        <span class="format-badge">DOC</span>
+                    </div>
+                    <button class="btn btn-primary" id="browseBtn" type="button">📁 Browse Files</button>
+                </div>
+
+                <!-- File preview (shown after selection) -->
+                <div class="file-preview" id="filePreview" style="display:none;">
+                    <div class="file-preview-icon">📄</div>
+                    <div class="file-preview-info">
+                        <div class="file-preview-name" id="fileName">filename.pdf</div>
+                        <div class="file-preview-meta">
+                            <span id="fileType" class="format-badge">PDF</span>
+                            <span id="fileSize" class="file-size-label">2.4 MB</span>
+                        </div>
+                    </div>
+                    <button class="btn-remove" id="removeFileBtn" type="button">✕ Remove</button>
+                </div>
+
+                <input type="file" id="fileInput" accept=".pdf,.docx,.doc" style="display:none;">
+            </div>
+
+            <!-- Job Description Section -->
+            <div class="jd-section">
+                <div class="jd-section-header">
+                    <div>
+                        <h3>💼 Job Description <span class="optional-badge">Optional</span></h3>
+                        <p>Paste a job description to get a detailed match analysis and identify skill gaps.</p>
+                    </div>
+                    <span class="jd-char-counter"><span id="jdCharCount">0</span> characters</span>
+                </div>
+                <textarea
+                    class="jd-textarea"
+                    id="jobDescription"
+                    placeholder="Paste the job description here...
+
+Example:
+We are looking for a Python Developer with 3+ years of experience in Django, REST APIs, and PostgreSQL. The ideal candidate should have strong knowledge of React, Docker, and AWS. Experience with CI/CD pipelines and Agile methodologies is a plus..."
+                ></textarea>
+            </div>
+
+            <!-- AI Mode Toggle -->
+            <div class="ai-toggle-row">
+                <label class="ai-toggle" id="aiToggleLabel">
+                    <input type="checkbox" id="aiModeToggle">
+                    <span class="ai-toggle-slider"></span>
+                    <span class="ai-toggle-label">
+                        ✨ AI-Powered Deep Analysis <span class="ai-badge">Powered by Google AI Studio</span>
+                    </span>
+                </label>
+                <span class="ai-status" id="aiStatus">Checking AI availability...</span>
+            </div>
+
+            <!-- Auto-Analyze Toggle -->
+            <div class="ai-toggle-row">
+                <label class="ai-toggle" id="autoAnalyzeToggleLabel">
+                    <input type="checkbox" id="autoAnalyzeToggle">
+                    <span class="ai-toggle-slider"></span>
+                    <span class="ai-toggle-label">
+                        ⚡ Auto-Analyze on Upload <span class="ai-badge">Self-Analyzing Mode</span>
+                    </span>
+                </label>
+                <span class="ai-status" id="autoAnalyzeStatus">Manual mode</span>
+            </div>
+
+            <!-- Batch Upload Section (hidden by default) -->
+            <div class="batch-section" id="batchSection" style="display:none;">
+                <div class="batch-header">
+                    <h3>📦 Batch Upload <span class="optional-badge">Multiple Resumes</span></h3>
+                    <p>Upload multiple resumes at once for automatic batch analysis.</p>
+                </div>
+                <div class="drop-zone batch-drop-zone" id="batchDropZone">
+                    <div class="drop-zone-content" id="batchDropZoneContent">
+                        <div class="drop-zone-icon">📤</div>
+                        <h3>Drag & Drop Multiple Resumes</h3>
+                        <p>Supports PDF and DOCX files up to 16 MB each</p>
+                        <div class="drop-zone-formats">
+                            <span class="format-badge">PDF</span>
+                            <span class="format-badge">DOCX</span>
+                            <span class="format-badge">DOC</span>
+                        </div>
+                        <button class="btn btn-primary" id="browseBatchBtn" type="button">📁 Browse Files</button>
+                    </div>
+                    <input type="file" id="batchFileInput" accept=".pdf,.docx,.doc" multiple style="display:none;">
+                </div>
+                <div class="batch-file-list" id="batchFileList"></div>
+                <div class="action-row" style="margin-top:1rem;">
+                    <button class="btn btn-analyze" id="batchAnalyzeBtn" type="button" disabled>
+                        🔍 Analyze All (<span id="batchFileCount">0</span>)
+                    </button>
+                    <button class="btn btn-secondary-outline" id="clearBatchBtn" type="button">
+                        🗑️ Clear
+                    </button>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="action-row">
+                <button class="btn btn-analyze" id="analyzeBtn" type="button">
+                    🔍 Analyze Resume
+                </button>
+                <button class="btn btn-secondary-outline" id="sampleBtn" type="button">
+                    📋 Try Sample Resume
+                </button>
+                <button class="btn btn-secondary-outline" id="toggleBatchBtn" type="button">
+                    📦 Batch Mode
+                </button>
+            </div>
+
+            <!-- Tips -->
+            <div class="tips-row">
+                <div class="tip-item">✅ PDF text must be selectable (not scanned)</div>
+                <div class="tip-item">📊 Add a job description for richer analysis</div>
+                <div class="tip-item">🔒 Files are processed securely and not stored</div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-content">
+            <div class="loading-spinner"></div>
+            <div class="loading-text" id="loadingText">Analyzing your resume...</div>
+            <div class="loading-sub">This usually takes 5–15 seconds</div>
+        </div>
+    </div>
+
+    <!-- Notification -->
+    <div class="notification" id="notification"></div>
+
+    <script src="js/script.js"></script>
+    <script src="js/analyzer.js"></script>
+</body>
+</html>

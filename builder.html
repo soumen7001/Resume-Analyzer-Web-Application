@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Resume Builder &amp; Live Editor — Resume Analyzer</title>
+    <meta name="description" content="Build, customize, and live-preview ATS-friendly resumes. Choose from professional templates and export to PDF or DOCX.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Merriweather:ital,wght@0,300;0,400;0,700;1,300&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="builder-body">
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="navbar-container">
+            <a href="index.html" class="navbar-brand">
+                <div class="navbar-brand-icon">📄</div>
+                Resume Analyzer
+            </a>
+            <ul class="navbar-nav" id="navbarNav">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="analyzer.html">Analyze Resume</a></li>
+                <li><a href="results.html">Results</a></li>
+                <li><a href="builder.html" class="active">Resume Builder</a></li>
+                <li><a href="about.html">About</a></li>
+            </ul>
+            <div class="navbar-right">
+                <div class="health-indicator">
+                    <span class="health-dot" id="healthDot"></span>
+                    <span class="health-label" id="healthLabel">Checking...</span>
+                </div>
+                <button class="navbar-toggle" id="navbarToggle" aria-label="Toggle navigation">☰</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Builder Workspace -->
+    <div class="builder-workspace">
+        
+        <!-- Top Toolbar -->
+        <header class="builder-toolbar">
+            <div class="toolbar-left">
+                <div class="template-selector-wrap">
+                    <label for="templateSelect" class="toolbar-label">Template:</label>
+                    <select id="templateSelect" class="toolbar-select">
+                        <option value="modern" selected>🚀 Modern Indigo</option>
+                        <option value="classic">📜 Classic ATS Clean</option>
+                        <option value="minimalist">🌿 Minimalist Charcoal</option>
+                        <option value="tech">💻 Tech Cyan Accent</option>
+                        <option value="executive">🏛️ Executive Serif</option>
+                    </select>
+                </div>
+
+                <div class="color-picker-wrap">
+                    <label class="toolbar-label">Accent:</label>
+                    <div class="color-swatches" id="colorSwatches">
+                        <button type="button" class="swatch active" data-color="#4f46e5" style="background:#4f46e5;" title="Indigo"></button>
+                        <button type="button" class="swatch" data-color="#0284c7" style="background:#0284c7;" title="Sky Blue"></button>
+                        <button type="button" class="swatch" data-color="#059669" style="background:#059669;" title="Emerald"></button>
+                        <button type="button" class="swatch" data-color="#7c3aed" style="background:#7c3aed;" title="Violet"></button>
+                        <button type="button" class="swatch" data-color="#e11d48" style="background:#e11d48;" title="Rose"></button>
+                        <button type="button" class="swatch" data-color="#334155" style="background:#334155;" title="Slate"></button>
+                    </div>
+                </div>
+
+                <div class="font-picker-wrap">
+                    <label for="fontSelect" class="toolbar-label">Font:</label>
+                    <select id="fontSelect" class="toolbar-select">
+                        <option value="'Inter', sans-serif" selected>Inter (Modern Sans)</option>
+                        <option value="'Merriweather', Georgia, serif">Merriweather (Classic Serif)</option>
+                        <option value="'Segoe UI', Roboto, sans-serif">System Sans</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="toolbar-actions">
+                <button type="button" class="btn btn-secondary-outline btn-sm" id="loadSampleDataBtn" title="Fill with sample data">
+                    📋 Fill Sample
+                </button>
+                <button type="button" class="btn btn-secondary-outline btn-sm" id="exportDocxBtn" title="Export as Microsoft Word document">
+                    📝 Export DOCX
+                </button>
+                <button type="button" class="btn btn-primary btn-sm" id="exportPdfBtn" title="Print or save as high-quality PDF">
+                    🖨️ Download PDF
+                </button>
+            </div>
+        </header>
+
+        <!-- Main Split Container -->
+        <main class="builder-grid">
+            
+            <!-- Left Pane: Interactive Form Editor -->
+            <section class="editor-pane">
+                <div class="editor-header">
+                    <h2>✏️ Resume Editor</h2>
+                    <p>Edit your details below. The A4 preview updates live in real-time.</p>
+                </div>
+
+                <div class="accordion-container" id="editorAccordion">
+                    
+                    <!-- Section 1: Contact Information -->
+                    <div class="accordion-card open" id="sec-contact">
+                        <div class="accordion-header" onclick="toggleAccordion('sec-contact')">
+                            <span class="accordion-title">👤 Contact Information</span>
+                            <span class="accordion-chevron">▼</span>
+                        </div>
+                        <div class="accordion-body">
+                            <div class="form-row">
+                                <div class="form-group flex-1">
+                                    <label>Full Name *</label>
+                                    <input type="text" id="inp-name" class="form-control" placeholder="e.g. John Doe">
+                                </div>
+                                <div class="form-group flex-1">
+                                    <label>Target Job Title / Professional Title</label>
+                                    <input type="text" id="inp-title" class="form-control" placeholder="e.g. Senior Full-Stack Engineer">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group flex-1">
+                                    <label>Email Address *</label>
+                                    <input type="email" id="inp-email" class="form-control" placeholder="john.doe@email.com">
+                                </div>
+                                <div class="form-group flex-1">
+                                    <label>Phone Number</label>
+                                    <input type="text" id="inp-phone" class="form-control" placeholder="(555) 123-4567">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group flex-1">
+                                    <label>Location / City, Country</label>
+                                    <input type="text" id="inp-location" class="form-control" placeholder="San Francisco, CA">
+                                </div>
+                                <div class="form-group flex-1">
+                                    <label>LinkedIn Username / URL</label>
+                                    <input type="text" id="inp-linkedin" class="form-control" placeholder="linkedin.com/in/johndoe">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group flex-1">
+                                    <label>GitHub Username / URL</label>
+                                    <input type="text" id="inp-github" class="form-control" placeholder="github.com/johndoe">
+                                </div>
+                                <div class="form-group flex-1">
+                                    <label>Portfolio / Website</label>
+                                    <input type="text" id="inp-website" class="form-control" placeholder="johndoe.dev">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section 2: Professional Summary -->
+                    <div class="accordion-card open" id="sec-summary">
+                        <div class="accordion-header" onclick="toggleAccordion('sec-summary')">
+                            <span class="accordion-title">📝 Professional Summary</span>
+                            <span class="accordion-chevron">▼</span>
+                        </div>
+                        <div class="accordion-body">
+                            <div class="form-group">
+                                <div class="form-label-row">
+                                    <label>Executive / Career Summary</label>
+                                    <button type="button" class="btn-micro" id="aiEnhanceSummaryBtn">✨ Polish with AI Action Words</button>
+                                </div>
+                                <textarea id="inp-summary" class="form-control" rows="4" placeholder="Write a compelling 2-4 sentence summary highlighting your core skills, experience level, and key accomplishments..."></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section 3: Skills -->
+                    <div class="accordion-card open" id="sec-skills">
+                        <div class="accordion-header" onclick="toggleAccordion('sec-skills')">
+                            <span class="accordion-title">💻 Skills &amp; Competencies</span>
+                            <span class="accordion-chevron">▼</span>
+                        </div>
+                        <div class="accordion-body">
+                            <div class="form-group">
+                                <label>Technical Skills (comma-separated)</label>
+                                <textarea id="inp-tech-skills" class="form-control" rows="2" placeholder="Python, React, TypeScript, Node.js, AWS, Docker, PostgreSQL, REST APIs..."></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Soft &amp; Leadership Skills (comma-separated)</label>
+                                <input type="text" id="inp-soft-skills" class="form-control" placeholder="Communication, Agile / Scrum, Problem Solving, Team Leadership, Mentorship...">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section 4: Work Experience -->
+                    <div class="accordion-card open" id="sec-experience">
+                        <div class="accordion-header" onclick="toggleAccordion('sec-experience')">
+                            <span class="accordion-title">💼 Professional Experience</span>
+                            <span class="accordion-chevron">▼</span>
+                        </div>
+                        <div class="accordion-body">
+                            <div id="experienceListContainer" class="dynamic-entries-list">
+                                <!-- Rendered dynamically by JS -->
+                            </div>
+                            <button type="button" class="btn btn-secondary-outline btn-sm w-100" id="addExperienceBtn">
+                                ➕ Add Work Experience Position
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Section 5: Projects -->
+                    <div class="accordion-card open" id="sec-projects">
+                        <div class="accordion-header" onclick="toggleAccordion('sec-projects')">
+                            <span class="accordion-title">🚀 Projects &amp; Portfolio</span>
+                            <span class="accordion-chevron">▼</span>
+                        </div>
+                        <div class="accordion-body">
+                            <div id="projectsListContainer" class="dynamic-entries-list">
+                                <!-- Rendered dynamically by JS -->
+                            </div>
+                            <button type="button" class="btn btn-secondary-outline btn-sm w-100" id="addProjectBtn">
+                                ➕ Add Project
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Section 6: Education -->
+                    <div class="accordion-card open" id="sec-education">
+                        <div class="accordion-header" onclick="toggleAccordion('sec-education')">
+                            <span class="accordion-title">🎓 Education</span>
+                            <span class="accordion-chevron">▼</span>
+                        </div>
+                        <div class="accordion-body">
+                            <div id="educationListContainer" class="dynamic-entries-list">
+                                <!-- Rendered dynamically by JS -->
+                            </div>
+                            <button type="button" class="btn btn-secondary-outline btn-sm w-100" id="addEducationBtn">
+                                ➕ Add Education Degree
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Section 7: Certifications -->
+                    <div class="accordion-card" id="sec-certifications">
+                        <div class="accordion-header" onclick="toggleAccordion('sec-certifications')">
+                            <span class="accordion-title">🏆 Certifications &amp; Credentials</span>
+                            <span class="accordion-chevron">▼</span>
+                        </div>
+                        <div class="accordion-body">
+                            <div id="certificationsListContainer" class="dynamic-entries-list">
+                                <!-- Rendered dynamically by JS -->
+                            </div>
+                            <button type="button" class="btn btn-secondary-outline btn-sm w-100" id="addCertificationBtn">
+                                ➕ Add Certification
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- Right Pane: Real-Time A4 Live Preview -->
+            <section class="preview-pane">
+                <div class="preview-sticky-bar">
+                    <div class="preview-status">
+                        <span class="pulse-dot"></span> Live Preview (A4 Standard)
+                    </div>
+                    <div class="preview-controls">
+                        <button type="button" class="btn-icon" id="zoomOutBtn" title="Zoom Out">🔍−</button>
+                        <span id="zoomLabel" class="zoom-level">100%</span>
+                        <button type="button" class="btn-icon" id="zoomInBtn" title="Zoom In">🔍+</button>
+                        <button type="button" class="btn-icon" id="zoomResetBtn" title="Reset Zoom">↺</button>
+                    </div>
+                </div>
+
+                <!-- A4 Paper Container -->
+                <div class="paper-viewport" id="paperViewport">
+                    <article class="resume-paper template-modern" id="resumePaper">
+                        <!-- Rendered in real-time by builder.js -->
+                    </article>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- Notification Toast -->
+    <div class="notification" id="notification"></div>
+
+    <script src="js/script.js"></script>
+    <script src="js/builder.js"></script>
+</body>
+</html>

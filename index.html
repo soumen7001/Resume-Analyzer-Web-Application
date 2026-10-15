@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Resume Analyzer — ATS Scores, Job Matching & Improvement Tips</title>
+    <meta name="description" content="Free AI-powered resume analyzer. Get instant ATS compatibility scores, job description matching, skill gap detection, and actionable improvement suggestions.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="navbar-container">
+            <a href="index.html" class="navbar-brand">
+                <div class="navbar-brand-icon">📄</div>
+                Resume Analyzer
+            </a>
+            <ul class="navbar-nav" id="navbarNav">
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="analyzer.html">Analyze Resume</a></li>
+                <li><a href="builder.html">Resume Builder</a></li>
+                <li><a href="about.html">About</a></li>
+            </ul>
+            <div class="navbar-right">
+                <div class="health-indicator">
+                    <span class="health-dot" id="healthDot"></span>
+                    <span class="health-label" id="healthLabel">Checking...</span>
+                </div>
+                <button class="navbar-toggle" id="navbarToggle" aria-label="Toggle navigation">☰</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">🚀 AI-Powered NLP Analyzer &amp; ATS Resume Builder</div>
+            <h1>Analyze &amp; Build Resumes<br>With AI Precision</h1>
+            <p class="hero-subtitle">
+                Get instant ATS compatibility scores, job description matching, skill gap detection,
+                and generate professionally tailored, ATS-optimized resumes with real-time live preview — ready to export in PDF &amp; DOCX.
+            </p>
+            <div class="hero-buttons">
+                <a href="analyzer.html" class="btn-hero-primary">📤 Analyze My Resume</a>
+                <a href="builder.html" class="btn-hero-secondary">✨ Open Resume Builder</a>
+            </div>
+            <div class="hero-stats">
+                <div>
+                    <div class="hero-stat-number">10K+</div>
+                    <div class="hero-stat-label">Resumes Analyzed</div>
+                </div>
+                <div>
+                    <div class="hero-stat-number">95%</div>
+                    <div class="hero-stat-label">Accuracy Rate</div>
+                </div>
+                <div>
+                    <div class="hero-stat-number">200+</div>
+                    <div class="hero-stat-label">Skills Detected</div>
+                </div>
+                <div>
+                    <div class="hero-stat-number">Free</div>
+                    <div class="hero-stat-label">Always Free</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="section" id="features" style="background: white;">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-badge">Features</div>
+                <h2 class="section-title">Powerful Resume Analysis</h2>
+                <p class="section-subtitle">Everything you need to optimize your resume and land more interviews</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>ATS Compatibility Score</h3>
+                    <p>Get a detailed ATS score to ensure your resume passes automated screening systems used by 98% of Fortune 500 companies.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3>Job Description Matching</h3>
+                    <p>Compare your resume against any job description using TF-IDF vectorization and cosine similarity to see how well you match.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💻</div>
+                    <h3>200+ Skills Detected</h3>
+                    <p>Automatically identify technical skills (Python, React, AWS, Docker…) and soft skills from your resume with high accuracy.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔑</div>
+                    <h3>Keyword Gap Analysis</h3>
+                    <p>Find exactly which keywords are missing from your resume compared to the job description and fix those gaps instantly.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💡</div>
+                    <h3>Actionable Suggestions</h3>
+                    <p>Receive specific, prioritized suggestions to improve your resume's content, keywords, and overall structure.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📈</div>
+                    <h3>Comprehensive Dashboard</h3>
+                    <p>Visualize your resume strength with score cards, progress bars, tab-based sections, and a downloadable report.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="section" id="how-it-works">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-badge">How It Works</div>
+                <h2 class="section-title">Three Simple Steps</h2>
+                <p class="section-subtitle">Get your resume analyzed in under 30 seconds</p>
+            </div>
+            <div class="steps-container">
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <h3>Upload Your Resume</h3>
+                    <p>Drag and drop your PDF or DOCX resume. Our system extracts and processes the text automatically.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <h3>Add a Job Description</h3>
+                    <p>Optionally paste a job description to see your match score and which skills you need to highlight.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <h3>Get Insights</h3>
+                    <p>Receive your full analysis: scores, detected skills, keyword gaps, strengths, and improvement tips.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container" style="position:relative;z-index:1;">
+            <h2>Ready to Optimize Your Resume?</h2>
+            <p>Join thousands of job seekers who have improved their resumes with AI-powered analysis.</p>
+            <a href="analyzer.html" class="btn-hero-primary">📤 Get Started — It's Free</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-grid">
+                <div>
+                    <div class="footer-brand">📄 Resume Analyzer</div>
+                    <p>AI-powered resume analysis to help you land your dream job. Get instant feedback, ATS scores, and personalized suggestions.</p>
+                </div>
+                <div>
+                    <h4 style="color:white;margin-bottom:.875rem;font-size:.95rem;">Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="analyzer.html">Analyze Resume</a></li>
+                        <li><a href="about.html">About</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 style="color:white;margin-bottom:.875rem;font-size:.95rem;">Features</h4>
+                    <ul class="footer-links">
+                        <li><a href="analyzer.html">ATS Score</a></li>
+                        <li><a href="analyzer.html">Job Matching</a></li>
+                        <li><a href="analyzer.html">Skills Detection</a></li>
+                        <li><a href="analyzer.html">Suggestions</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 style="color:white;margin-bottom:.875rem;font-size:.95rem;">Technology</h4>
+                    <ul class="footer-links">
+                        <li><a href="about.html">How It Works</a></li>
+                        <li><a href="about.html">Technologies</a></li>
+                        <li><a href="about.html">Architecture</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© <span id="footerYear">2024</span> Resume Analyzer — Built with ❤️ using Python, Flask &amp; NLP</p>
+            </div>
+        </div>
+    </footer>
+
+    <div class="notification" id="notification"></div>
+    <script src="js/script.js"></script>
+</body>
+</html>

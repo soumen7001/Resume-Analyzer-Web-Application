@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analysis Results — AI Resume Analyzer</title>
+    <meta name="description" content="View your resume analysis results: ATS score, job match, skills detected, and improvement suggestions.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="navbar-container">
+            <a href="index.html" class="navbar-brand">
+                <div class="navbar-brand-icon">📄</div>
+                Resume Analyzer
+            </a>
+            <ul class="navbar-nav" id="navbarNav">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="analyzer.html">Analyze Resume</a></li>
+                <li><a href="batch_results.html">Batch Results</a></li>
+                <li><a href="about.html">About</a></li>
+            </ul>
+            <div class="navbar-right">
+                <div class="health-indicator">
+                    <span class="health-dot" id="healthDot"></span>
+                    <span class="health-label" id="healthLabel">Checking...</span>
+                </div>
+                <button class="navbar-toggle" id="navbarToggle" aria-label="Toggle navigation">☰</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- No Data Message (shown if localStorage is empty) -->
+    <div id="noDataMessage" style="display:none;" class="no-data-page">
+        <div class="no-data-content">
+            <div class="no-data-icon">📭</div>
+            <h2>No Analysis Data Found</h2>
+            <p>It looks like you haven't analyzed a resume yet. Please go to the Analyzer page to get started.</p>
+            <a href="analyzer.html" class="btn btn-primary">🔍 Analyze a Resume</a>
+        </div>
+    </div>
+
+    <!-- Results Content -->
+    <div id="resultsContent" class="page-wrapper results-page">
+
+        <!-- Results Header -->
+        <div class="results-header">
+            <div class="results-header-left">
+                <div class="section-badge">Analysis Complete</div>
+                <h1>Resume Analysis Results
+                    <span class="sample-badge" id="sampleBadge" style="display:none;">SAMPLE</span>
+                </h1>
+                <div class="results-meta" id="resumeMeta">
+                    <!-- Filled by JS -->
+                </div>
+            </div>
+            <div class="results-header-actions">
+                <button class="btn btn-outline" id="downloadReportBtn" type="button">⬇️ Download Report</button>
+                <button class="btn btn-primary" id="generateResumeBtn" type="button">✨ Generate Improved Resume</button>
+                <button class="btn btn-secondary-outline" id="newAnalysisBtn" type="button">🔄 New Analysis</button>
+            </div>
+        </div>
+
+        <!-- AI Resume Builder CTA Banner -->
+        <div class="generator-banner-card">
+            <div class="generator-banner-content">
+                <div class="generator-banner-badge">🚀 Next-Gen ATS Optimization</div>
+                <h2>Ready to boost your interview callbacks?</h2>
+                <p>Turn these insights and job-matching gaps into a professionally tailored, ATS-friendly resume in seconds. Customize sections, select modern templates, and export to PDF or DOCX.</p>
+            </div>
+            <a href="builder.html" class="btn btn-primary btn-lg" id="builderBannerBtn">
+                ✨ Open Live Resume Builder &amp; Editor →
+            </a>
+        </div>
+
+        <!-- Score Cards -->
+        <div class="score-cards" id="scoreCards">
+            <!-- Filled by results.js -->
+        </div>
+
+            <!-- Tab Navigation -->
+            <div class="tabs-container">
+                <div class="tab-bar">
+                    <button class="tab-btn active" data-tab="tab-overview">📊 Overview</button>
+                    <button class="tab-btn" data-tab="tab-skills">💻 Skills</button>
+                    <button class="tab-btn" data-tab="tab-jobmatch">🎯 Job Match</button>
+                    <button class="tab-btn" data-tab="tab-details">📋 Details</button>
+                    <button class="tab-btn ai-tab-btn" data-tab="tab-ai" id="aiTabBtn" style="display:none;">✨ AI Insights</button>
+                    <button class="tab-btn" data-tab="tab-suggestions">💡 Suggestions</button>
+                </div>
+
+            <!-- Tab: Overview -->
+            <div class="tab-panel active" id="tab-overview">
+                <div class="panel-grid">
+                    <!-- ATS Breakdown -->
+                    <div class="result-card">
+                        <div class="result-card-header">
+                            <div class="result-card-icon" style="background:#dbeafe;color:#2563eb;">📊</div>
+                            <h3>ATS Score Breakdown</h3>
+                        </div>
+                        <div id="atsBreakdown">
+                            <p class="empty-msg">Loading...</p>
+                        </div>
+                    </div>
+
+                    <!-- Strengths -->
+                    <div class="result-card">
+                        <div class="result-card-header">
+                            <div class="result-card-icon" style="background:#d1fae5;color:#10b981;">✅</div>
+                            <h3>Strengths</h3>
+                        </div>
+                        <div id="strengthsList"></div>
+                    </div>
+
+                    <!-- Improvements -->
+                    <div class="result-card">
+                        <div class="result-card-header">
+                            <div class="result-card-icon" style="background:#fef3c7;color:#f59e0b;">⚠️</div>
+                            <h3>Areas for Improvement</h3>
+                        </div>
+                        <div id="improvementsList"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab: Skills -->
+            <div class="tab-panel" id="tab-skills">
+                <div class="panel-grid">
+                    <div class="result-card">
+                        <div class="result-card-header">
+                            <div class="result-card-icon" style="background:#dbeafe;color:#2563eb;">💻</div>
+                            <h3>Technical Skills Detected</h3>
+                        </div>
+                        <div class="skills-cloud" id="technicalSkillsList"></div>
+                    </div>
+                    <div class="result-card">
+                        <div class="result-card-header">
+                            <div class="result-card-icon" style="background:#d1fae5;color:#10b981;">🤝</div>
+                            <h3>Soft Skills Detected</h3>
+                        </div>
+                        <div class="skills-cloud" id="softSkillsList"></div>
+                    </div>
+                    <div class="result-card">
+                        <div class="result-card-header">
+                            <div class="result-card-icon" style="background:#fce7f3;color:#ec4899;">🔑</div>
+                            <h3>Resume Keywords</h3>
+                        </div>
+                        <div class="skills-cloud" id="resumeKeywordsList"></div>
+                    </div>
+                    <div class="result-card">
+                        <div class="result-card-header">
+                            <div class="result-card-icon" style="background:#fef3c7;color:#f59e0b;">⚡</div>
+                            <h3>Commonly Missing Skills</h3>
+                        </div>
+                        <div class="skills-cloud" id="missingSkillsList"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab: Job Match -->
+            <div class="tab-panel" id="tab-jobmatch">
+                <p id="noJDMessage" class="no-jd-msg" style="display:none;">
+                    📋 <strong>No job description was provided.</strong><br>
+                    Go back and paste a job description in the analyzer to see how well your resume matches the role.
+                    <br><br>
+                    <a href="analyzer.html" class="btn btn-primary" style="display:inline-flex;">🔍 Analyze with Job Description</a>
+                </p>
+
+                <div id="jobMatchTab">
+                    <!-- Match Stats -->
+                    <div class="match-stats-row">
+                        <div class="match-stat-card">
+                            <div class="match-stat-value" id="matchPct">—</div>
+                            <div class="match-stat-label">Overall Match</div>
+                        </div>
+                        <div class="match-stat-card">
+                            <div class="match-stat-value" id="tfidfScore">—</div>
+                            <div class="match-stat-label">Content Similarity</div>
+                        </div>
+                        <div class="match-stat-card">
+                            <div class="match-stat-value" id="kwOverlap">—</div>
+                            <div class="match-stat-label">Keyword Overlap</div>
+                        </div>
+                    </div>
+
+                    <div class="panel-grid">
+                        <div class="result-card">
+                            <div class="result-card-header">
+                                <div class="result-card-icon" style="background:#d1fae5;color:#10b981;">✅</div>
+                                <h3>Matching Skills</h3>
+                            </div>
+                            <div class="skills-cloud" id="matchingSkillsList"></div>
+                        </div>
+                        <div class="result-card">
+                            <div class="result-card-header">
+                                <div class="result-card-icon" style="background:#fee2e2;color:#ef4444;">❌</div>
+                                <h3>Missing Skills</h3>
+                            </div>
+                            <div class="skills-cloud" id="missingSkillsListJD"></div>
+                        </div>
+                        <div class="result-card">
+                            <div class="result-card-header">
+                                <div class="result-card-icon" style="background:#dbeafe;color:#2563eb;">🔑</div>
+                                <h3>Matching Keywords</h3>
+                            </div>
+                            <div class="skills-cloud" id="matchingKWList"></div>
+                        </div>
+                        <div class="result-card">
+                            <div class="result-card-header">
+                                <div class="result-card-icon" style="background:#fef3c7;color:#f59e0b;">⚠️</div>
+                                <h3>Missing Keywords</h3>
+                            </div>
+                            <div class="skills-cloud" id="missingKWList"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab: Details -->
+            <div class="tab-panel" id="tab-details">
+                <div class="panel-grid">
+                    <div class="result-card">
+                        <div class="result-card-header">
+                            <div class="result-card-icon" style="background:#dbeafe;color:#2563eb;">📇</div>
+                            <h3>Contact Information</h3>
+                        </div>
+                        <div id="contactInfoList"></div>
+                    </div>
+                    <div class="result-card">
+                        <div class="result-card-header">
+                            <div class="result-card-icon" style="background:#d1fae5;color:#10b981;">🎓</div>
+                            <h3>Education</h3>
+                        </div>
+                        <div id="educationList"></div>
+                    </div>
+                    <div class="result-card">
+                        <div class="result-card-header">
+                            <div class="result-card-icon" style="background:#e0e7ff;color:#6366f1;">💼</div>
+                            <h3>Work Experience</h3>
+                        </div>
+                        <div id="experienceList"></div>
+                    </div>
+                    <div class="result-card">
+                        <div class="result-card-header">
+                            <div class="result-card-icon" style="background:#fce7f3;color:#ec4899;">🚀</div>
+                            <h3>Projects</h3>
+                        </div>
+                        <div id="projectsList"></div>
+                    </div>
+                    <div class="result-card">
+                        <div class="result-card-header">
+                            <div class="result-card-icon" style="background:#fef3c7;color:#f59e0b;">🏆</div>
+                            <h3>Certifications</h3>
+                        </div>
+                        <div id="certificationsList"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab: AI Insights -->
+            <div class="tab-panel" id="tab-ai">
+                <div id="aiDisabledMsg" style="display:none;" class="no-jd-msg">
+                    🤖 <strong>AI Analysis is available when enabled on the Analyzer page.</strong><br>
+                    Go back and enable "✨ AI-Powered Deep Analysis" before analyzing your resume.
+                    <br><br>
+                    <a href="analyzer.html" class="btn btn-primary" style="display:inline-flex;">🔍 Analyze with AI Mode</a>
+                </div>
+                <div id="aiContent">
+                    <div class="panel-grid">
+                        <!-- AI Overall Score -->
+                        <div class="result-card">
+                            <div class="result-card-header">
+                                <div class="result-card-icon" style="background:#ede9fe;color:#7c3aed;">🎯</div>
+                                <h3>AI Overall Score</h3>
+                            </div>
+                            <div id="aiOverallScore" class="ai-score-display"></div>
+                        </div>
+
+                        <!-- AI ATS Score -->
+                        <div class="result-card">
+                            <div class="result-card-header">
+                                <div class="result-card-icon" style="background:#dbeafe;color:#2563eb;">📊</div>
+                                <h3>AI ATS Score</h3>
+                            </div>
+                            <div id="aiATSScore" class="ai-score-display"></div>
+                        </div>
+
+                        <!-- AI Strengths -->
+                        <div class="result-card">
+                            <div class="result-card-header">
+                                <div class="result-card-icon" style="background:#d1fae5;color:#10b981;">✅</div>
+                                <h3>AI-Identified Strengths</h3>
+                            </div>
+                            <div id="aiStrengthsList"></div>
+                        </div>
+
+                        <!-- AI Improvements -->
+                        <div class="result-card">
+                            <div class="result-card-header">
+                                <div class="result-card-icon" style="background:#fef3c7;color:#f59e0b;">⚠️</div>
+                                <h3>AI-Suggested Improvements</h3>
+                            </div>
+                            <div id="aiImprovementsList"></div>
+                        </div>
+
+                        <!-- Grammar Corrections -->
+                        <div class="result-card">
+                            <div class="result-card-header">
+                                <div class="result-card-icon" style="background:#fee2e2;color:#ef4444;">📝</div>
+                                <h3>Grammar & Spelling Corrections</h3>
+                            </div>
+                            <div id="aiGrammarList"></div>
+                        </div>
+
+                        <!-- Clarity Improvements -->
+                        <div class="result-card">
+                            <div class="result-card-header">
+                                <div class="result-card-icon" style="background:#dbeafe;color:#2563eb;">✨</div>
+                                <h3>Clarity Improvements</h3>
+                            </div>
+                            <div id="aiClarityList"></div>
+                        </div>
+
+                        <!-- Action Verbs -->
+                        <div class="result-card">
+                            <div class="result-card-header">
+                                <div class="result-card-icon" style="background:#e0e7ff;color:#6366f1;">💪</div>
+                                <h3>Action Verb Suggestions</h3>
+                            </div>
+                            <div id="aiActionVerbsList"></div>
+                        </div>
+
+                        <!-- Achievements Feedback -->
+                        <div class="result-card">
+                            <div class="result-card-header">
+                                <div class="result-card-icon" style="background:#fce7f3;color:#ec4899;">📈</div>
+                                <h3>Quantified Achievements Feedback</h3>
+                            </div>
+                            <div id="aiAchievementsFeedback"></div>
+                        </div>
+
+                        <!-- Structure Feedback -->
+                        <div class="result-card">
+                            <div class="result-card-header">
+                                <div class="result-card-icon" style="background:#d1fae5;color:#10b981;">🏗️</div>
+                                <h3>Structure & Formatting Feedback</h3>
+                            </div>
+                            <div id="aiStructureList"></div>
+                        </div>
+
+                        <!-- AI Recommendations -->
+                        <div class="result-card" style="max-width:860px;margin:0 auto;">
+                            <div class="result-card-header">
+                                <div class="result-card-icon" style="background:#fef3c7;color:#f59e0b;">🚀</div>
+                                <h3>AI Recommendations</h3>
+                            </div>
+                            <div id="aiRecommendationsList"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-panel" id="tab-suggestions">
+                <div class="result-card" style="max-width:860px;margin:0 auto;">
+                    <div class="result-card-header">
+                        <div class="result-card-icon" style="background:#dbeafe;color:#2563eb;">💡</div>
+                        <h3>Actionable Improvement Suggestions</h3>
+                    </div>
+                    <div id="suggestionsList"></div>
+                </div>
+            </div>
+        </div>
+        <!-- /tabs-container -->
+
+    </div>
+    <!-- /resultsContent -->
+
+    <!-- Notification -->
+    <div class="notification" id="notification"></div>
+
+    <script src="js/script.js"></script>
+    <script src="js/results.js"></script>
+</body>
+</html>

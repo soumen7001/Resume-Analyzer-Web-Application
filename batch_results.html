@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Batch Analysis Results — AI Resume Analyzer</title>
+    <meta name="description" content="View batch resume analysis results for multiple candidates.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav class="navbar" id="navbar">
+        <div class="navbar-container">
+            <a href="index.html" class="navbar-brand">
+                <div class="navbar-brand-icon">📄</div>
+                Resume Analyzer
+            </a>
+            <ul class="navbar-nav" id="navbarNav">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="analyzer.html">Analyze Resume</a></li>
+                <li><a href="about.html">About</a></li>
+            </ul>
+            <div class="navbar-right">
+                <div class="health-indicator">
+                    <span class="health-dot" id="healthDot"></span>
+                    <span class="health-label" id="healthLabel">Checking...</span>
+                </div>
+                <button class="navbar-toggle" id="navbarToggle" aria-label="Toggle navigation">☰</button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="page-wrapper">
+        <div class="results-header">
+            <div class="results-header-left">
+                <div class="section-badge">Batch Analysis</div>
+                <h1>Batch Analysis Results</h1>
+                <div class="results-meta" id="batchMeta"></div>
+            </div>
+            <div class="results-header-actions">
+                <a href="analyzer.html" class="btn btn-primary">🔍 New Analysis</a>
+            </div>
+        </div>
+
+        <div id="batchResults" class="batch-results-grid"></div>
+
+        <div id="noDataMessage" style="display:none;" class="no-data-page">
+            <div class="no-data-content">
+                <div class="no-data-icon">📭</div>
+                <h2>No Batch Results Found</h2>
+                <p>It looks like you haven't run a batch analysis yet. Please go to the Analyzer page to get started.</p>
+                <a href="analyzer.html" class="btn btn-primary">📦 Start Batch Analysis</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="notification" id="notification"></div>
+    <script src="js/script.js"></script>
+    <script src="js/batch_results.js"></script>
+</body>
+</html>

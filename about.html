@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About — AI Resume Analyzer</title>
+    <meta name="description" content="Learn how the AI Resume Analyzer works, the NLP technologies used, and the project architecture.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="navbar-container">
+            <a href="index.html" class="navbar-brand">
+                <div class="navbar-brand-icon">📄</div>
+                Resume Analyzer
+            </a>
+            <ul class="navbar-nav" id="navbarNav">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="analyzer.html">Analyze Resume</a></li>
+                <li><a href="builder.html">Resume Builder</a></li>
+                <li><a href="batch_results.html">Batch Results</a></li>
+                <li><a href="about.html" class="active">About</a></li>
+            </ul>
+            <div class="navbar-right">
+                <div class="health-indicator">
+                    <span class="health-dot" id="healthDot"></span>
+                    <span class="health-label" id="healthLabel">Checking...</span>
+                </div>
+                <button class="navbar-toggle" id="navbarToggle" aria-label="Toggle navigation">☰</button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="about-page">
+
+        <div class="about-header">
+            <div class="section-badge">About This Project</div>
+            <h1>AI Resume Analyzer</h1>
+            <p>An NLP-powered platform built to help job seekers optimize their resumes and land more interviews through intelligent analysis and actionable insights.</p>
+        </div>
+
+        <!-- What It Does -->
+        <div class="about-section">
+            <h2>🎯 What Does the Resume Analyzer Do?</h2>
+            <p>The Resume Analyzer is a full-stack web application that uses Natural Language Processing (NLP) and Machine Learning techniques to evaluate your resume and provide comprehensive insights.</p>
+            <p><strong>Key capabilities:</strong></p>
+            <ul>
+                <li><strong>ATS Compatibility Scoring</strong> — Evaluates how well your resume performs with Applicant Tracking Systems across 7 weighted dimensions</li>
+                <li><strong>Job Description Matching</strong> — Compares your resume against job descriptions using TF-IDF vectorization and cosine similarity</li>
+                <li><strong>Skills Detection</strong> — Identifies 200+ technical and soft skills from your resume using regex pattern matching</li>
+                <li><strong>Keyword Analysis</strong> — Extracts and compares important keywords, highlighting matches and gaps</li>
+                <li><strong>Section Detection</strong> — Identifies contact info, education, experience, projects, and certifications</li>
+                <li><strong>Improvement Suggestions</strong> — Generates prioritized, actionable recommendations</li>
+                <li><strong>Downloadable Report</strong> — Export your full analysis as a text report</li>
+            </ul>
+        </div>
+
+        <!-- How It Works -->
+        <div class="about-section">
+            <h2>⚙️ How Does the Analysis Work?</h2>
+            <p>The analysis engine uses a multi-stage pipeline of NLP and ML techniques:</p>
+            <div style="background:var(--gray-50);padding:1.5rem;border-radius:var(--radius-lg);margin-top:1rem;border:1px solid var(--gray-200);">
+                <ol style="margin-left:1.25rem;color:var(--gray-600);line-height:2.2;">
+                    <li><strong>Text Extraction</strong> — pdfplumber (PDF) and python-docx (DOCX) extract raw text</li>
+                    <li><strong>Section Parsing</strong> — Regex-based section detection for contact info, education, experience, skills, projects, and certifications</li>
+                    <li><strong>Skills Detection</strong> — Pattern matching against a curated database of 200+ technical and soft skills</li>
+                    <li><strong>ATS Scoring</strong> — Weighted scoring across 7 categories: contact info, skills, experience, education, projects, certifications, and formatting</li>
+                    <li><strong>TF-IDF Vectorization</strong> — scikit-learn converts resume and job description text to numerical feature vectors</li>
+                    <li><strong>Cosine Similarity</strong> — Measures the semantic angle between resume and job description vectors</li>
+                    <li><strong>Keyword Overlap</strong> — Jaccard-style keyword matching for interpretable match percentages</li>
+                    <li><strong>Suggestions Engine</strong> — Rule-based system generates personalized improvement recommendations</li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- Technologies -->
+        <div class="about-section">
+            <h2>🛠️ Technologies Used</h2>
+            <p>Built with a modern Python backend and a pure HTML/CSS/JavaScript frontend:</p>
+            <div class="tech-grid">
+                <div class="tech-item">
+                    <div class="tech-item-icon" style="background:#dbeafe;color:#2563eb;">🌐</div>
+                    <div class="tech-item-info">
+                        <h4>HTML5 &amp; CSS3</h4>
+                        <p>Responsive frontend, animations</p>
+                    </div>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-item-icon" style="background:#fef3c7;color:#f59e0b;">⚙️</div>
+                    <div class="tech-item-info">
+                        <h4>JavaScript ES6+</h4>
+                        <p>API communication, UI rendering</p>
+                    </div>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-item-icon" style="background:#d1fae5;color:#10b981;">🐍</div>
+                    <div class="tech-item-info">
+                        <h4>Python &amp; Flask</h4>
+                        <p>Backend API, business logic</p>
+                    </div>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-item-icon" style="background:#fce7f3;color:#ec4899;">📊</div>
+                    <div class="tech-item-info">
+                        <h4>scikit-learn</h4>
+                        <p>TF-IDF, cosine similarity</p>
+                    </div>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-item-icon" style="background:#e0e7ff;color:#6366f1;">📄</div>
+                    <div class="tech-item-info">
+                        <h4>pdfplumber</h4>
+                        <p>PDF text extraction</p>
+                    </div>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-item-icon" style="background:#ccfbf1;color:#14b8a6;">📝</div>
+                    <div class="tech-item-info">
+                        <h4>python-docx</h4>
+                        <p>DOCX text extraction</p>
+                    </div>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-item-icon" style="background:#f3e8ff;color:#a855f7;">🔤</div>
+                    <div class="tech-item-info">
+                        <h4>NLP Techniques</h4>
+                        <p>Regex, keyword extraction</p>
+                    </div>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-item-icon" style="background:#fff7ed;color:#f97316;">🔒</div>
+                    <div class="tech-item-info">
+                        <h4>flask-cors</h4>
+                        <p>Cross-origin API security</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Architecture -->
+        <div class="about-section">
+            <h2>🏗️ Project Architecture</h2>
+            <p>Clean, modular architecture designed for scalability — ready for database integration and LLM upgrades:</p>
+            <div style="background:var(--gray-900);color:#e2e8f0;padding:1.5rem;border-radius:var(--radius-lg);margin-top:1rem;font-family:monospace;font-size:0.88rem;overflow-x:auto;line-height:1.8;">
+<pre>resume-analyzer/
+├── index.html          ← Home page
+├── analyzer.html       ← Upload &amp; analyze page
+├── results.html        ← Results dashboard (tab-based)
+├── about.html          ← This page
+├── css/
+│   └── style.css       ← Premium responsive styles
+├── js/
+│   ├── script.js       ← Shared: navbar, notifications, health check
+│   ├── analyzer.js     ← Analyzer page: upload, API call, localStorage
+│   └── results.js      ← Results page: render all sections, animations
+└── backend/
+    ├── app.py          ← Flask API (CORS-enabled)
+    ├── resume_parser.py← Text extraction (PDF/DOCX)
+    ├── analyzer.py     ← Scoring, TF-IDF, suggestions
+    ├── requirements.txt← Python dependencies
+    └── uploads/        ← Temp file storage (auto-cleaned)</pre>
+            </div>
+            <div style="margin-top:1.25rem;">
+                <h4 style="margin-bottom:.75rem;color:var(--gray-900);">API Endpoints:</h4>
+                <ul style="margin-left:1.25rem;color:var(--gray-600);line-height:2.2;">
+                    <li><code style="background:var(--gray-100);padding:.2rem .5rem;border-radius:4px;">POST /upload-resume</code> — Upload and parse a resume file</li>
+                    <li><code style="background:var(--gray-100);padding:.2rem .5rem;border-radius:4px;">POST /analyze-resume</code> — Full analysis (with optional job description)</li>
+                    <li><code style="background:var(--gray-100);padding:.2rem .5rem;border-radius:4px;">POST /match-job</code> — Match resume text against job description</li>
+                    <li><code style="background:var(--gray-100);padding:.2rem .5rem;border-radius:4px;">GET /health</code> — Health check endpoint</li>
+                    <li><code style="background:var(--gray-100);padding:.2rem .5rem;border-radius:4px;">GET /api/skills</code> — Skills database for autocomplete</li>
+                    <li><code style="background:var(--gray-100);padding:.2rem .5rem;border-radius:4px;">GET /api/analyze-sample</code> — Demo analysis without uploading</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Future Enhancements -->
+        <div class="about-section">
+            <h2>🔮 Future Enhancements</h2>
+            <p>The modular architecture makes it easy to add:</p>
+            <ul>
+                <li><strong>Database Integration</strong> — MySQL/PostgreSQL/MongoDB for storing analysis history</li>
+                <li><strong>User Authentication</strong> — Login/register with user profiles and history</li>
+                <li><strong>LLM Integration</strong> — GPT/Claude-powered resume rewriting and cover letter generation</li>
+                <li><strong>Resume Templates</strong> — ATS-optimized resume templates with one-click export</li>
+                <li><strong>Interview Prep</strong> — Generate interview questions based on resume &amp; job description</li>
+                <li><strong>Multi-language Support</strong> — Analyze resumes in multiple languages</li>
+                <li><strong>Resume Comparison</strong> — Compare multiple resume versions side by side</li>
+                <li><strong>Industry Benchmarks</strong> — Compare against aggregated industry standards</li>
+            </ul>
+        </div>
+
+        <!-- CTA -->
+        <div style="text-align:center;padding:2rem 0 3rem;">
+            <h2 style="margin-bottom:.75rem;color:var(--gray-900);font-size:1.6rem;font-weight:800;">Ready to Get Started?</h2>
+            <p style="color:var(--gray-500);margin-bottom:1.75rem;">Upload your resume and get instant AI-powered analysis — completely free.</p>
+            <a href="analyzer.html" class="btn btn-primary" style="font-size:1rem;padding:.9rem 2rem;">
+                🔍 Analyze My Resume
+            </a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-grid">
+                <div>
+                    <div class="footer-brand">📄 Resume Analyzer</div>
+                    <p>AI-powered resume analysis to help you land your dream job.</p>
+                </div>
+                <div>
+                    <h4 style="color:white;margin-bottom:.875rem;font-size:.95rem;">Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="analyzer.html">Analyze Resume</a></li>
+                        <li><a href="about.html">About</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© <span id="footerYear">2024</span> Resume Analyzer — Built with ❤️ using Python, Flask &amp; NLP</p>
+            </div>
+        </div>
+    </footer>
+
+    <div class="notification" id="notification"></div>
+    <script src="js/script.js"></script>
+</body>
+</html>
